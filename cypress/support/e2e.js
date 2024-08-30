@@ -1,5 +1,5 @@
 import './create-commands'
-import './complete-commands'
+import './change-state-commands'
 import './edit-commands'
 import './delete-commands'
 import './filter-commands'

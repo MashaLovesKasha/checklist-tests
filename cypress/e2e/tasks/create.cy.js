@@ -1,4 +1,4 @@
-describe('Task creation', () => {
+describe('Creates tasks', () => {
     beforeEach(() => {
         cy.visit('/')
     })

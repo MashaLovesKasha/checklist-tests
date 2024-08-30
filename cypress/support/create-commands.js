@@ -19,6 +19,7 @@ Cypress.Commands.add('verifyTodoListContent', (tasks) => {
     if (typeof tasks === 'string') {
         tasks = [tasks]
     }
+
     tasks.forEach((task, index) => {
         cy.get('[data-testid="todo-list"] li')
             .eq(index)
@@ -28,6 +29,7 @@ Cypress.Commands.add('verifyTodoListContent', (tasks) => {
 
 Cypress.Commands.add('verifyTodoListCounter', (expectedCount) => {
     const itemText = expectedCount === 1 ? 'item' : 'items'
+
     cy.get('.todo-count')
         .should('have.text', `${expectedCount} ${itemText} left!`)
 })
@@ -37,6 +39,7 @@ Cypress.Commands.add('verifyTodoList', (tasks) => {
     if (typeof tasks === 'string') {
         tasks = [tasks]
     }
+
     cy.verifyTodoListLength(tasks.length)
     cy.verifyTodoListContent(tasks)
     cy.verifyTodoListCounter(tasks.length)
