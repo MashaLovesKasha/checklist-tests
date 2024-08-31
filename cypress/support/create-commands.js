@@ -27,7 +27,7 @@ Cypress.Commands.add('verifyTodoListContent', (tasks) => {
     })
 })
 
-Cypress.Commands.add('verifyTodoListCounter', (expectedCount) => {
+Cypress.Commands.add('verifyActiveTaskCounter', (expectedCount) => {
     const itemText = expectedCount === 1 ? 'item' : 'items'
 
     cy.get('.todo-count')
@@ -42,5 +42,5 @@ Cypress.Commands.add('verifyTodoList', (tasks) => {
 
     cy.verifyTodoListLength(tasks.length)
     cy.verifyTodoListContent(tasks)
-    cy.verifyTodoListCounter(tasks.length)
+    cy.verifyActiveTaskCounter(tasks.length)
 })
