@@ -2,6 +2,7 @@
   "name": "cypress_project",
   "version": "1.0.0",
   "devDependencies": {
+    "@types/jquery": "^3.5.30",
     "cypress": "^13.14.0",
     "cypress-real-events": "^1.13.0"
   }

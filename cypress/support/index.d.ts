@@ -1,24 +1,22 @@
-// TODO define types better
 declare namespace Cypress {
     interface Chainable<Subject = any> {
-        addTask(task: string): void
+        getTodoListItems(): Cypress.Chainable<JQuery<HTMLElement>>
         addTasks(tasks: string[]): void
-        completeTask(taskIndex: any): void
+        completeTask(taskText: string): void
         completeAllTasks(): void
-        verifyAllTasksState(expectedState: 'completed' | 'active', ...taskIndexes: (number | 'all')[]): void
-        verifySingleTaskState(expectedState: any, taskIndex: any): void
-        activateTask(taskIndex: any): void
+        activateTask(taskText: string): void
         activateAllTasks(): void
-        editTask(taskIndex: any, newText: any, options?: { clear: boolean }): void
-        verifyTaskText(taskIndex: any, expectedText: any): void
-        deleteTask(taskIndex: any): void
+        editTask(taskText: string, newText: string, options?: { clear: boolean }): void
+        deleteTask(taskText: string): void
         deleteAllCompletedTasks(): void
-        verifyTaskNotInList(taskText: any): void
-        verifyTaskInList(taskText: any): void
         filterBy(filterName: 'All' | 'Active' | 'Completed'): void
-        verifyTodoListLength(expectedLength: any): void
-        verifyTodoListContent(tasks: string | string[]): void
-        verifyActiveTaskCounter(expectedCount: any): void
-        verifyTodoList(tasks: string | string[]): void
+        verifyTaskText(taskIndex: number, expectedText: string): void
+        verifyTaskIsInList(taskText: string): void
+        verifyTaskIsNotInList(taskText: string): void
+        verifyTodoListLength(expectedLength: number): void
+        verifyTodoListTextOrder(tasks: string[]): void
+        verifyActiveTaskCounter(expectedCount: number): void
+        verifyAllTasksState(expectedState: 'completed' | 'active', ...taskTexts: (string | 'all')[]): void
+        verifySingleTaskState(expectedState: 'completed' | 'active', taskText: string): void
     }
 }

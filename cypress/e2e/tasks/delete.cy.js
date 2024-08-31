@@ -1,5 +1,6 @@
 describe('Deletes tasks', () => {
     const tasks = ['Task 1', 'Task 2', 'Task 3']
+    const initialTaskCount = tasks.length
 
     beforeEach(() => {
         cy.visit('/')
@@ -7,46 +8,45 @@ describe('Deletes tasks', () => {
     })
 
     it('Deletes an active task', () => {
-        cy.verifyTodoListLength(tasks.length)
-        cy.deleteTask(0)
+        cy.verifyTodoListLength(initialTaskCount)
+        cy.deleteTask(tasks[0])
 
-        cy.verifyTodoListLength(tasks.length - 1)
-        cy.verifyTaskNotInList(tasks[0])
-        cy.verifyActiveTaskCounter(tasks.length - 1)
+        cy.verifyTodoListLength(initialTaskCount - 1)
+        cy.verifyTaskIsNotInList(tasks[0])
+        cy.verifyActiveTaskCounter(initialTaskCount - 1)
     })
 
     it('Deletes a completed task', () => {
-        cy.verifyTodoListLength(tasks.length)
+        cy.verifyTodoListLength(initialTaskCount)
         cy.completeAllTasks()
-        cy.deleteTask(1)
+        cy.deleteTask(tasks[1])
 
-        cy.verifyTodoListLength(tasks.length - 1)
-        cy.verifyTaskNotInList(tasks[1])
+        cy.verifyTodoListLength(initialTaskCount - 1)
+        cy.verifyTaskIsNotInList(tasks[1])
         cy.verifyActiveTaskCounter( 0)
-    });
+    })
 
     it('Clears all completed tasks', () => {
-        //TODO probably we'll need a command to complete and verify several tasks, but not all
-        cy.verifyTodoListLength(tasks.length)
-        cy.completeTask(1)
-        cy.completeTask(2)
+        cy.verifyTodoListLength(initialTaskCount)
+        cy.completeTask(tasks[1])
+        cy.completeTask(tasks[2])
         cy.deleteAllCompletedTasks()
 
-        cy.verifyTodoListLength(tasks.length - 2)
-        cy.verifyTaskNotInList(tasks[1])
-        cy.verifyTaskNotInList(tasks[2])
-        cy.verifyActiveTaskCounter( tasks.length - 2)
-    });
+        cy.verifyTodoListLength(initialTaskCount - 2)
+        cy.verifyTaskIsNotInList(tasks[1])
+        cy.verifyTaskIsNotInList(tasks[2])
+        cy.verifyActiveTaskCounter( initialTaskCount - 2)
+    })
 
     it('Deletes an edited task', () => {
-        const updatedText = 'Edited Task 2'
+        const updatedText = 'Updated Task 3'
 
-        cy.verifyTodoListLength(tasks.length)
-        cy.editTask(2, updatedText)
-        cy.deleteTask(2)
+        cy.verifyTodoListLength(initialTaskCount)
+        cy.editTask(tasks[2], updatedText)
+        cy.deleteTask(updatedText)
 
-        cy.verifyTodoListLength(tasks.length - 1)
-        cy.verifyTaskNotInList(updatedText)
-        cy.verifyActiveTaskCounter( tasks.length - 1)
+        cy.verifyTodoListLength(initialTaskCount - 1)
+        cy.verifyTaskIsNotInList(updatedText)
+        cy.verifyActiveTaskCounter( initialTaskCount - 1)
     })
 })

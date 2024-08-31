@@ -3,8 +3,3 @@ Cypress.Commands.add('filterBy', (filter) => {
         .contains(filter)
         .click()
 })
-
-Cypress.Commands.add('verifyTaskInList', (taskText) => {
-    cy.get('[data-testid="todo-list"] li')
-        .should('contain.text', taskText)
-})

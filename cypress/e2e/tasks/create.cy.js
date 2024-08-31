@@ -4,6 +4,8 @@ describe('Creates tasks', () => {
     })
 
     it('Checks the initial state', () => {
+        cy.contains('h1', 'todos')
+
         cy.log('Input field is visible, empty and has the correct placeholder')
         cy.get('[data-testid="text-input"]')
             .should('be.visible')
@@ -12,24 +14,26 @@ describe('Creates tasks', () => {
 
         cy.log('To-do list is not visible and empty')
         cy.get('[data-testid="todo-list"]')
-            .as('list')
             .should('not.be.visible')
-        cy.get('@list')
-            .find('li')
+        cy.getTodoListItems()
             .should('have.length', 0)
     })
 
-    it('Allows user to add a single task', () => {
-        const task = 'Task 1'
+    it('Adds a single task', () => {
+        const task = ['Task 1']
 
-        cy.addTask(task)
-        cy.verifyTodoList(task)
+        cy.addTasks(task)
+        cy.verifyTodoListLength(task.length)
+        cy.verifyTodoListTextOrder(task)
+        cy.verifyActiveTaskCounter(task.length)
     })
 
-    it('Allows user to add multiple tasks', () => {
+    it('Adds multiple tasks', () => {
         const tasks = ['Task 1', 'Task 2', 'Task 3']
 
         cy.addTasks(tasks)
-        cy.verifyTodoList(tasks)
+        cy.verifyTodoListLength(tasks.length)
+        cy.verifyTodoListTextOrder(tasks)
+        cy.verifyActiveTaskCounter(tasks.length)
     })
 })

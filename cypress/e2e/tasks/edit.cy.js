@@ -9,17 +9,17 @@ describe('Edits tasks', () => {
     it('Edits an active task, replacing the text', () => {
         const updatedText = 'Updated task text'
 
-        cy.editTask(0, updatedText)
+        cy.editTask(tasks[0], updatedText)
         cy.verifyTaskText(0, updatedText)
-        cy.verifySingleTaskState('active', 0)
+        cy.verifySingleTaskState('active', updatedText)
     })
 
     it('Edits a completed task, appending new text', () => {
         const appendedText = ' - appended text'
 
-        cy.completeTask(1)
-        cy.editTask(1, appendedText, { clear: false })
+        cy.completeTask(tasks[1])
+        cy.editTask(tasks[1], appendedText, { clear: false })
         cy.verifyTaskText(1, `${tasks[1]}${appendedText}`)
-        cy.verifySingleTaskState('completed', 1)
+        cy.verifySingleTaskState('completed', `${tasks[1]}${appendedText}`)
     })
 })

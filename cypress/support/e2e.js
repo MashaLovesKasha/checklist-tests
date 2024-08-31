@@ -1,6 +1,7 @@
 import './create-commands'
-import './change-state-commands'
+import './state-commands'
 import './edit-commands'
 import './delete-commands'
 import './filter-commands'
+import './common-commands'
 import 'cypress-real-events/support'
