@@ -19,15 +19,16 @@ describe('Creates tasks', () => {
             .should('have.length', 0)
     })
 
-    // TODO not sure if I want to keep this test, it's included to the next one. Need to think
     it('Allows user to add a single task', () => {
         const task = 'Task 1'
+
         cy.addTask(task)
         cy.verifyTodoList(task)
     })
 
     it('Allows user to add multiple tasks', () => {
         const tasks = ['Task 1', 'Task 2', 'Task 3']
+
         cy.addTasks(tasks)
         cy.verifyTodoList(tasks)
     })

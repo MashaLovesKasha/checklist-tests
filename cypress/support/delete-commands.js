@@ -17,5 +17,5 @@ Cypress.Commands.add('deleteAllCompletedTasks', () => {
 
 Cypress.Commands.add('verifyTaskNotInList', (taskText) => {
     cy.get('[data-testid="todo-list"] li')
-        .should('not.contain', taskText)
+        .should('not.contain.text', taskText)
 })
