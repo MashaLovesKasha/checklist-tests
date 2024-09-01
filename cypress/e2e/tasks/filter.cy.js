@@ -50,21 +50,25 @@ describe('Filters tasks',{ tags: ['medium-priority'] }, () => {
             cy.verifyTodoListLength(initialTaskCount)
         })
 
-        it('Activates the only task on "Completed" tab', () => {
-            cy.log('Marks the third task as completed, filters by completed tasks. The task list has only 1 task')
+        it('Activates one task out of two on "Completed" tab', () => {
+            cy.log('Marks the second and third tasks as completed, filters by completed tasks. The task list has 2 tasks')
+            cy.completeTask(tasks[1])
             cy.completeTask(tasks[2])
             cy.filterBy('Completed')
+            cy.verifyTodoListLength(initialTaskCount - 1)
+
+            cy.log('Activates the second task. It is removed from the completed list. ' +
+                'The third task is still in the list. The completed task list has 1 task')
+            cy.activateTask(tasks[1])
+            cy.verifyTaskIsNotInList(tasks[1])
+            cy.verifyTaskIsInList(tasks[2])
             cy.verifyTodoListLength(initialTaskCount - 2)
 
-            cy.log('Activates the only completed task. The completed task list is hidden and empty')
-            cy.activateTask(tasks[2])
-            cy.verifyTodoListIsHiddenAndEmpty()
-
-            cy.log('Filters by active tasks to verify the third task now in this list')
+            cy.log('Filters by active tasks to verify the second task now in this list')
             cy.filterBy('Active')
-            cy.verifyTaskIsInList(tasks[2])
-            cy.verifySingleTaskState('active', tasks[2])
-            cy.verifyTodoListLength(initialTaskCount)
+            cy.verifyTaskIsInList(tasks[1])
+            cy.verifySingleTaskState('active', tasks[1])
+            cy.verifyTodoListLength(initialTaskCount - 1)
         })
     })
 })
