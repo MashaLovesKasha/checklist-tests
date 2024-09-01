@@ -1,4 +1,4 @@
-describe('Deletes tasks', () => {
+describe('Deletes tasks', { tags: ['medium-priority'] },() => {
     const tasks = ['Task 1', 'Task 2', 'Task 3']
     const initialTaskCount = tasks.length
 
@@ -8,6 +8,7 @@ describe('Deletes tasks', () => {
     })
 
     it('Deletes an active task', () => {
+        cy.log('Deletes the first active task. Active task counter decreases by 1, the task is removed from the list')
         cy.verifyTodoListLength(initialTaskCount)
         cy.deleteTask(tasks[0])
 
@@ -17,6 +18,8 @@ describe('Deletes tasks', () => {
     })
 
     it('Deletes a completed task', () => {
+        cy.log('Completes all tasks and then deletes the second task. ' +
+            'Active task counter decreases by 1, the task is removed from the list')
         cy.verifyTodoListLength(initialTaskCount)
         cy.completeAllTasks()
         cy.deleteTask(tasks[1])
@@ -27,6 +30,8 @@ describe('Deletes tasks', () => {
     })
 
     it('Clears all completed tasks', () => {
+        cy.log('Completes 2 tasks and then deletes all completed tasks. Active task counter decreases by 2, ' +
+            'both tasks are removed from the list')
         cy.verifyTodoListLength(initialTaskCount)
         cy.completeTask(tasks[1])
         cy.completeTask(tasks[2])
@@ -41,6 +46,8 @@ describe('Deletes tasks', () => {
     it('Deletes an edited task', () => {
         const updatedText = 'Updated Task 3'
 
+        cy.log('Edits the third task and then deletes it. Active task counter decreases by 1, ' +
+            'the updated task is removed from the list')
         cy.verifyTodoListLength(initialTaskCount)
         cy.editTask(tasks[2], updatedText)
         cy.deleteTask(updatedText)

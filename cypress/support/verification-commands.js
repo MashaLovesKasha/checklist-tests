@@ -1,10 +1,5 @@
-Cypress.Commands.add('getTodoListItems', () => {
-    return cy.get('[data-testid="todo-list"] li')
-})
-
-
 // ====================================================
-// Verification of to-do list length, content and the active task counter
+// Verifying to-do list length, content, and active task counter
 // ====================================================
 
 Cypress.Commands.add('verifyTodoListLength', (expectedLength) => {
@@ -12,7 +7,9 @@ Cypress.Commands.add('verifyTodoListLength', (expectedLength) => {
         .should('have.length', expectedLength)
 })
 
-// Verifies that the to-do list contains tasks with expected text in the correct order
+/**
+ * Verifies that the to-do list contains tasks with the expected text in the correct order
+ */
 Cypress.Commands.add('verifyTodoListTextOrder', (tasks) => {
     tasks.forEach((task, index) => {
         cy.getTodoListItems()
@@ -34,9 +31,16 @@ Cypress.Commands.add('verifyActiveTaskCounter', (expectedCount) => {
         .should('have.text', `${expectedCount} ${itemText} left!`)
 })
 
+Cypress.Commands.add('verifyTodoListIsHiddenAndEmpty', () => {
+    cy.get('[data-testid="todo-list"]')
+        .should('not.be.visible')
+    cy.getTodoListItems()
+        .should('have.length', 0)
+})
+
 
 // ====================================================
-// Verification of task presence in the to-do list
+// Verifying task presence in the to-do list
 // ====================================================
 
 Cypress.Commands.add('verifyTaskIsInList', (taskText) => {
@@ -51,7 +55,7 @@ Cypress.Commands.add('verifyTaskIsNotInList', (taskText) => {
 
 
 // ====================================================
-// Verification of task state (active or completed)
+// Verifying task state (active or completed)
 // ====================================================
 
 Cypress.Commands.add('verifySingleTaskState', (expectedState, taskText) => {
@@ -63,7 +67,9 @@ Cypress.Commands.add('verifySingleTaskState', (expectedState, taskText) => {
         .should(completedState ? 'have.class' : 'not.have.class', 'completed')
 })
 
-// Verifies the state of specified tasks (completed or active) and ensures that all other tasks are in the opposite state
+/**
+ * Verifies the state (completed or active) of specified tasks and ensures that all other tasks are in the opposite state
+ */
 Cypress.Commands.add('verifyAllTasksState', (expectedState, ...taskTexts) => {
     const completedState = expectedState === 'completed'
     const checkAll = taskTexts.includes('all')

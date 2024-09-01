@@ -1,9 +1,17 @@
 {
   "name": "cypress_project",
   "version": "1.0.0",
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:run-high-priority": "cypress run --env grepTags=high-priority",
+    "cy:run-medium-priority": "cypress run --env grepTags=medium-priority"
+  },
   "devDependencies": {
+    "@cypress/grep": "^4.1.0",
     "@types/jquery": "^3.5.30",
     "cypress": "^13.14.0",
+    "cypress-mochawesome-reporter": "^3.8.2",
     "cypress-real-events": "^1.13.0"
   }
 }

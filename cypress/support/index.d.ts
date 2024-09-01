@@ -15,6 +15,7 @@ declare namespace Cypress {
         verifyTaskIsNotInList(taskText: string): void
         verifyTodoListLength(expectedLength: number): void
         verifyTodoListTextOrder(tasks: string[]): void
+        verifyTodoListIsHiddenAndEmpty(): void
         verifyActiveTaskCounter(expectedCount: number): void
         verifyAllTasksState(expectedState: 'completed' | 'active', ...taskTexts: (string | 'all')[]): void
         verifySingleTaskState(expectedState: 'completed' | 'active', taskText: string): void

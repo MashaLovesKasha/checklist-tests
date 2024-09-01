@@ -1,9 +1,9 @@
-describe('Creates tasks', () => {
+describe('Creates tasks', { tags: ['high-priority'] },() => {
     beforeEach(() => {
         cy.visit('/')
     })
 
-    it('Checks the initial state', () => {
+    it('Checks the page initial state',() => {
         cy.contains('h1', 'todos')
 
         cy.log('Input field is visible, empty and has the correct placeholder')
@@ -11,29 +11,26 @@ describe('Creates tasks', () => {
             .should('be.visible')
             .and('have.value', '')
             .and('have.attr', 'placeholder', 'What needs to be done?')
-
-        cy.log('To-do list is not visible and empty')
-        cy.get('[data-testid="todo-list"]')
-            .should('not.be.visible')
-        cy.getTodoListItems()
-            .should('have.length', 0)
+        cy.verifyTodoListIsHiddenAndEmpty()
     })
 
     it('Adds a single task', () => {
         const task = ['Task 1']
+        const taskCount = task.length
 
         cy.addTasks(task)
-        cy.verifyTodoListLength(task.length)
+        cy.verifyTodoListLength(taskCount)
         cy.verifyTodoListTextOrder(task)
-        cy.verifyActiveTaskCounter(task.length)
+        cy.verifyActiveTaskCounter(taskCount)
     })
 
     it('Adds multiple tasks', () => {
         const tasks = ['Task 1', 'Task 2', 'Task 3']
+        const taskCount = tasks.length
 
         cy.addTasks(tasks)
-        cy.verifyTodoListLength(tasks.length)
+        cy.verifyTodoListLength(taskCount)
         cy.verifyTodoListTextOrder(tasks)
-        cy.verifyActiveTaskCounter(tasks.length)
+        cy.verifyActiveTaskCounter(taskCount)
     })
 })
