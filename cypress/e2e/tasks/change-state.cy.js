@@ -1,4 +1,4 @@
-describe('Changes tasks state',{ tags: ['high-priority'] }, () => {
+describe('Changes tasks state', () => {
     const tasks = ['Task 1', 'Task 2', 'Task 3', 'Task 4', 'Task 5']
     const initialTaskCount = tasks.length
 
@@ -8,7 +8,7 @@ describe('Changes tasks state',{ tags: ['high-priority'] }, () => {
     })
 
     describe('Completes tasks', () => {
-        it('Marks some tasks as completed one by one', () => {
+        it('Marks some tasks as completed one by one', { tags: ['high-priority'] },() => {
             cy.log('Marks the second task as completed. There are 4 active tasks and 1 completed. ' +
                 'Active task counter decreases by 1')
             cy.completeTask(tasks[1])
@@ -22,7 +22,7 @@ describe('Changes tasks state',{ tags: ['high-priority'] }, () => {
             cy.verifyActiveTaskCounter(initialTaskCount - 2)
         })
 
-        it('Marks all tasks as completed', () => {
+        it('Marks all tasks as completed', { tags: ['medium-priority'] }, () => {
             cy.completeAllTasks()
             cy.verifyAllTasksState( 'completed', 'all')
             cy.verifyActiveTaskCounter(initialTaskCount - 5)
@@ -34,7 +34,7 @@ describe('Changes tasks state',{ tags: ['high-priority'] }, () => {
             cy.completeAllTasks()
         })
 
-        it('Marks some tasks as active one by one', () => {
+        it('Marks some tasks as active one by one', { tags: ['high-priority'] },() => {
             cy.log('Marks the first task as active. There are 4 completed tasks and 1 active. ' +
                 'Active task counter increases by 1')
             cy.activateTask(tasks[0])
@@ -48,7 +48,7 @@ describe('Changes tasks state',{ tags: ['high-priority'] }, () => {
             cy.verifyActiveTaskCounter(initialTaskCount - 3)
         })
 
-        it('Marks all tasks as active', () => {
+        it('Marks all tasks as active', { tags: ['medium-priority'] }, () => {
             cy.activateAllTasks()
             cy.verifyAllTasksState('active', 'all')
             cy.verifyActiveTaskCounter(initialTaskCount)

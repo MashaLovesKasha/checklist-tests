@@ -51,20 +51,20 @@ describe('Filters tasks',{ tags: ['medium-priority'] }, () => {
         })
 
         it('Activates one task out of two on "Completed" tab', () => {
-            cy.log('Marks the second and third tasks as completed, filters by completed tasks. The task list has 2 tasks')
+            cy.log('Marks two active tasks as completed, filters by completed tasks. The task list has 2 tasks')
             cy.completeTask(tasks[1])
             cy.completeTask(tasks[2])
             cy.filterBy('Completed')
             cy.verifyTodoListLength(initialTaskCount - 1)
 
-            cy.log('Activates the second task. It is removed from the completed list. ' +
-                'The third task is still in the list. The completed task list has 1 task')
+            cy.log('Activates one of the completed tasks. It is removed from the completed list. ' +
+                'The other task is still in the list. The completed task list has 1 task')
             cy.activateTask(tasks[1])
             cy.verifyTaskIsNotInList(tasks[1])
             cy.verifyTaskIsInList(tasks[2])
             cy.verifyTodoListLength(initialTaskCount - 2)
 
-            cy.log('Filters by active tasks to verify the second task now in this list')
+            cy.log('Filters by active tasks to verify the activated task now in this list')
             cy.filterBy('Active')
             cy.verifyTaskIsInList(tasks[1])
             cy.verifySingleTaskState('active', tasks[1])
