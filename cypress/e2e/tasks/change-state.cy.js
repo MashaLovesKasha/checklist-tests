@@ -9,13 +9,13 @@ describe('Changes tasks state', () => {
 
     describe('Completes tasks', () => {
         it('Marks some tasks as completed one by one', { tags: ['high-priority'] },() => {
-            cy.log('Marks the second task as completed. There are 4 active tasks and 1 completed. ' +
+            cy.log('Marks one task as completed. There are 4 active tasks and 1 completed. ' +
                 'Active task counter decreases by 1')
             cy.completeTask(tasks[1])
             cy.verifyAllTasksState('completed', tasks[1])
             cy.verifyActiveTaskCounter(initialTaskCount - 1)
 
-            cy.log('Marks the 5th task as completed. There are 3 active tasks and 2 completed. ' +
+            cy.log('Marks one more task as completed. There are 3 active tasks and 2 completed. ' +
                 'Active task counter decreases by 1 again')
             cy.completeTask(tasks[4])
             cy.verifyAllTasksState('completed', tasks[1], tasks[4])
@@ -35,13 +35,13 @@ describe('Changes tasks state', () => {
         })
 
         it('Marks some tasks as active one by one', { tags: ['high-priority'] },() => {
-            cy.log('Marks the first task as active. There are 4 completed tasks and 1 active. ' +
+            cy.log('Marks one task as active. There are 4 completed tasks and 1 active. ' +
                 'Active task counter increases by 1')
             cy.activateTask(tasks[0])
             cy.verifyAllTasksState('active', tasks[0])
             cy.verifyActiveTaskCounter(initialTaskCount - 4)
 
-            cy.log('Marks the 4th task as active. There are 3 completed tasks and 2 active. ' +
+            cy.log('Marks one more task as active. There are 3 completed tasks and 2 active. ' +
                 'Active task counter increases by 1 again')
             cy.activateTask(tasks[3])
             cy.verifyAllTasksState('active', tasks[0], tasks[3])

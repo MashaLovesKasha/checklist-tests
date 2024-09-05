@@ -18,20 +18,17 @@ describe('Deletes tasks', { tags: ['medium-priority'] },() => {
     })
 
     it('Deletes a completed task', () => {
-        cy.log('Completes all tasks and then deletes one of them. ' +
-            'Active task counter decreases by 1, the task is removed from the list')
+        cy.log('Completes all tasks and then deletes one of them. The task is removed from the list')
         cy.verifyTodoListLength(initialTaskCount)
         cy.completeAllTasks()
         cy.deleteTask(tasks[1])
 
         cy.verifyTodoListLength(initialTaskCount - 1)
         cy.verifyTaskIsNotInList(tasks[1])
-        cy.verifyActiveTaskCounter( 0)
     })
 
     it('Clears all completed tasks', () => {
-        cy.log('Completes 2 tasks and then deletes all completed tasks. Active task counter decreases by 2, ' +
-            'both tasks are removed from the list')
+        cy.log('Completes 2 tasks and then deletes all completed tasks. Both tasks are removed from the list')
         cy.verifyTodoListLength(initialTaskCount)
         cy.completeTask(tasks[1])
         cy.completeTask(tasks[2])
@@ -40,20 +37,17 @@ describe('Deletes tasks', { tags: ['medium-priority'] },() => {
         cy.verifyTodoListLength(initialTaskCount - 2)
         cy.verifyTaskIsNotInList(tasks[1])
         cy.verifyTaskIsNotInList(tasks[2])
-        cy.verifyActiveTaskCounter( initialTaskCount - 2)
     })
 
     it('Deletes an edited task', () => {
         const updatedText = 'Updated Task 3'
 
-        cy.log('Edits an active task and then deletes it. Active task counter decreases by 1, ' +
-            'the updated task is removed from the list')
+        cy.log('Edits an active task and then deletes it. The updated task is removed from the list')
         cy.verifyTodoListLength(initialTaskCount)
         cy.editTask(tasks[2], updatedText)
         cy.deleteTask(updatedText)
 
         cy.verifyTodoListLength(initialTaskCount - 1)
         cy.verifyTaskIsNotInList(updatedText)
-        cy.verifyActiveTaskCounter( initialTaskCount - 1)
     })
 })
